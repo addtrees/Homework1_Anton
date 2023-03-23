@@ -1,50 +1,117 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="windows-1251">
-<title>Домашнее задание 1</title>
-<style>
-    /* Add some padding on document's body to prevent the content
-    to go underneath the header and footer */
-    body{
-        padding-top: 60px;
-        padding-bottom: 40px;
-    }
-    .fixed-header, .fixed-footer{
-        width: 100%;
-        position: fixed;
-        background: #333;
-        padding: 10px 0;
-        color: #fff;
-    }
-    .fixed-header{
-        top: 0;
-    }
-    .fixed-footer{
-        bottom: 0;
-    }
-    .container{
-        width: 80%;
-        margin: 0 auto; /* Center the DIV horizontally */
-    }
-    nav a{
-        color: #fff;
-        text-decoration: none;
-        padding: 7px 25px;
-        display: inline-block;
-    }
-</style>
+    <meta charset="windows-1251">
+    <title>Домашнее задание 1</title>
+    <style>
+        /* Add some padding on document's body to prevent the content to go underneath the header and footer */
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .fixed-header, .fixed-footer {
+            width: 100%;
+            position: fixed;
+            background: #333;
+            padding: 10px 0;
+            color: #fff;
+        }
+
+        .fixed-header {
+            top: 0;
+        }
+
+        .fixed-footer {
+            bottom: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto; /* Center the DIV horizontally */
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 7px 25px;
+            display: inline-block;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="file"] {
+            margin-top: 10px;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .image-preview {
+            margin-top: 20px;
+            width: 500px;
+            height: auto;
+            display: none;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .score {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 50px;
+        }
+
+        .fixed-footer-text {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="fixed-header">
         <div class="container">
-            <p>
-
-            </p>
-
+            <nav>
+                <a href="#">Главная</a>
+                <a href="#">О нас</a>
+                <a href="#">Контакты</a>
+            </nav>
         </div>
     </div>
+
     <div class="container">
+        <h1>Классификация изображений</h1>
+
         <form action="predictImage" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
@@ -53,7 +120,7 @@
             </div><input name="filePath" type="file" id="file-input"><br><br>
             <img id="preview-image" src="" alt="Preview Image">
             <br><br>
-            <input type="submit" value="Submit" >
+            <input type="submit" value="Submit">
         </form>
     </div>
     <div>
