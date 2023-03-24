@@ -25,4 +25,4 @@ def predictImageData(modelName, filePath):
     sess = onnxruntime.InferenceSession(r'/home/shen/PycharmProjects/bmstu/media/models/cifar100_CNN_AUG.onnx') #<-Здесь требуется указать свой путь к модели
     outputOFModel = np.argmax(sess.run(None, {'input': np.asarray([img]).astype(np.float32)}))
     score = imageClassList[str(outputOFModel)]
-    return score
+    return score[0]
