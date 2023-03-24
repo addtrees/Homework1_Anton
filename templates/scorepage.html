@@ -112,15 +112,14 @@
     <div class="container">
             <h1>Classification of images</h1>
 
-        <form action="predictImage" method="post" enctype="multipart/form-data">
+        <form id="predictForm" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-
             <div class="col-md-4 col-sm-4">
-                <label for="FilePath">Upload an image:</label>
+                <label for="FilePath">Loading Image:</label>
             </div><input name="filePath" type="file" id="file-input"><br><br>
             <img id="preview-image" src="" alt="Preview Image">
             <br><br>
-            <input type="submit" value="Submit">
+            <input type="button" id="predictButton" value="Submit">
         </form>
     </div>
     <div>
@@ -133,19 +132,37 @@
     <div class="fixed-footer">
         <div class="container"></div>
     </div>
-    <script>
-        const fileInput = document.getElementById('file-input');
-        const previewImage = document.getElementById('preview-image');
+        <script>
+            const fileInput = document.getElementById('file-input');
+            const previewImage = document.getElementById('preview-image');
+            const predictForm = document.getElementById('predictForm');
+            const predictButton = document.getElementById('predictButton');
 
-        fileInput.addEventListener('change', function() {
-        const file = fileInput.files[0];
-        const reader = new FileReader();
-        reader.onload = function(event) {
-        previewImage.src = event.target.result;
-        }
-        reader.readAsDataURL(file);
-        });
-    </script>
+            fileInput.addEventListener('change', function() {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    previewImage.src = event.target.result;
+                }
+                reader.readAsDataURL(file);
+            });
+
+            predictButton.addEventListener('click', function() {
+                const xhr = new XMLHttpRequest();
+                const formData = new FormData(predictForm);
+                xhr.open('POST', '/predictImage');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        const resultDiv = document.createElement('div');
+                        resultDiv.innerHTML = '<h3>The classification is : ' + JSON.parse(xhr.responseText).classification + '</h3>';
+                        predictForm.appendChild(resultDiv);
+                    } else {
+                        alert('An error occurred while predicting the image. Please try again.');
+                    }
+                };
+                xhr.send(formData);
+            });
+        </script>
 </body>
 </html>
 
