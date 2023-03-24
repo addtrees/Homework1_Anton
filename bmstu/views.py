@@ -22,7 +22,7 @@ def predictImage(request):
 def predictImageData(modelName, filePath):
     img = Image.open(filePath).convert("RGB")
     img = np.asarray(img.resize((32, 32), Image.ANTIALIAS))
-    sess = onnxruntime.InferenceSession(r'/home/shen/PycharmProjects/bmstu/media/models/cifar100_linear.onnx') #<-Здесь требуется указать свой путь к модели
+    sess = onnxruntime.InferenceSession(r'/home/shen/PycharmProjects/bmstu/media/models/cifar100_CNN_RESNET20.onnx') #<-Здесь требуется указать свой путь к модели
     outputOFModel = np.argmax(sess.run(None, {'input': np.asarray([img]).astype(np.float32)}))
     score = imageClassList[str(outputOFModel)]
     return score
